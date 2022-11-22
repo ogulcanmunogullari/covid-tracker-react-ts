@@ -9,6 +9,15 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 type dataType = {
   data: string
 }
+type dataChart = {
+  labels: string[]
+  datasets: {
+    label: string
+    data: any[]
+    borderColor: string[]
+    backgroundColor: string[]
+  }[]
+}
 
 const HOST = import.meta.env.VITE_HOST
 const KEY = import.meta.env.VITE_KEY
@@ -28,7 +37,7 @@ const options = {
   },
 }
 function CoronaChart({ data }: dataType) {
-  const [chartData, setChartData] = useState(null)
+  const [chartData, setChartData] = useState<dataChart>()
   useEffect(() => {
     const getStatistics = async () => {
       const res = await axios("https://covid-193.p.rapidapi.com/statistics", {
@@ -39,50 +48,51 @@ function CoronaChart({ data }: dataType) {
       })
       const sData = await res.data.response
       const totalCases = await sData
-        .filter((x) => x.deaths.new !== null)
+        .filter((x: any) => x.cases.total !== null)
         .reduce(
-          (accumulator, currentValue) => accumulator + currentValue.cases.total,
+          (accumulator: any, currentValue: any) =>
+            accumulator + currentValue.cases.total,
           0,
         )
       const recoveredCases = await sData
-        .filter((x) => x.deaths.new !== null)
+        .filter((x: any) => x.cases.recovered !== null)
         .reduce(
-          (accumulator, currentValue) =>
+          (accumulator: any, currentValue: any) =>
             accumulator + currentValue.cases.recovered,
           0,
         )
       const activeCases = await sData
-        .filter((x) => x.deaths.new !== null)
+        .filter((x: any) => x.cases.active !== null)
         .reduce(
-          (accumulator, currentValue) =>
+          (accumulator: any, currentValue: any) =>
             accumulator + currentValue.cases.active,
           0,
         )
       const newCases = await sData
-        .filter((x) => x.deaths.new !== null)
+        .filter((x: any) => x.cases.new !== null)
         .reduce(
-          (accumulator, currentValue) =>
+          (accumulator: any, currentValue: any) =>
             accumulator + Number(currentValue.cases.new),
           0,
         )
       const criticalCases = await sData
-        .filter((x) => x.deaths.new !== null)
+        .filter((x: any) => x.cases.critical !== null)
         .reduce(
-          (accumulator, currentValue) =>
+          (accumulator: any, currentValue: any) =>
             accumulator + currentValue.cases.critical,
           0,
         )
       const totalDeaths = await sData
-        .filter((x) => x.deaths.new !== null)
+        .filter((x: any) => x.deaths.total !== null)
         .reduce(
-          (accumulator, currentValue) =>
+          (accumulator: any, currentValue: any) =>
             accumulator + currentValue.deaths.total,
           0,
         )
       const newDeaths = await sData
-        .filter((x) => x.deaths.new !== null)
+        .filter((x: any) => x.deaths.new !== null)
         .reduce(
-          (accumulator, currentValue) =>
+          (accumulator: any, currentValue: any) =>
             accumulator + Number(currentValue.deaths.new),
           0,
         )

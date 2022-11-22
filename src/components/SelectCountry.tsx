@@ -4,7 +4,13 @@ import axios from "axios"
 const HOST = import.meta.env.VITE_HOST
 const KEY = import.meta.env.VITE_KEY
 
-function SelectCountry({ userData, setUserData }) {
+function SelectCountry({
+  userData,
+  setUserData,
+}: {
+  userData: any
+  setUserData: any
+}) {
   const [countries, setCountries] = useState<string[]>([])
   useEffect(() => {
     const getCountries = async () => {
