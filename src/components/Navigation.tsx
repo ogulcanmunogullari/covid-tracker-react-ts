@@ -8,7 +8,7 @@ function Navigation() {
       </li>
       <li className="bg-[#6C63FF] text-white p-4 sm:p-5 rounded-lg">
         <a
-          href="https://github.com/ogulcanmunogullari?tab=repositories"
+          href="https://github.com/ogulcanmunogullari/covid-tracker-react-ts"
           target="_blank">
           Github
         </a>
